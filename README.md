@@ -1,2 +1,2 @@
 # Facultad
-Metodos de ordenamiento (insercion, seleccion, burbuja, burbuja mejorado, mergeSort, quickSort)
+Metodos de ordenamiento que realize (insercion, seleccion, burbuja, burbuja mejorado, mergeSort, quickSort)
