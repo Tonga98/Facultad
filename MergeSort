@@ -1,0 +1,101 @@
+import java.util.Scanner;
+public class TPpromocion {
+    public static void main(String[] args) {
+        //Este algoritmo ordena un arreglo cargado por el usuario mediante el algoritmo de ordenamiento mergesort
+
+        //Declaracion de variables
+        int [] arreglo;
+
+        //Asignacion de variables y ejecucion
+        arreglo = cargarArreglo();
+        System.out.println("El arreglo original es:"+mostrarArreglo(arreglo));
+        mergeSort(arreglo,0,arreglo.length-1);
+        System.out.println("El arreglo ordenado por merge sort es:" + mostrarArreglo(arreglo));
+    }
+    public static void mergeSort(int[] vector, int izq, int der){
+        //Este modulo es un algoritmo mergeSort
+        //vector: Se refiere al vector original a ordenar
+        //izq: Se refiere al limite izquierdo del vector/sub vector
+        //der: Se refiere al limite derecho del vector/sub vector
+
+        //Declaracion de variables
+        int centro;
+
+        //Asignacion de variables y ejecucion
+        if (izq < der){
+            centro = (izq + der) / 2;
+            mergeSort(vector, izq, centro);
+            mergeSort(vector, centro+1, der);
+            mezclar(vector, izq, centro, der);
+        }
+    }
+    public static void mezclar(int[] arreglo, int limIzq,int centro, int limDer) {
+        //Este modulo mezcla las mitades del arreglo ordenandolas de menor a mayor
+        //arreglo: Se refiere al arreglo original a ordenar
+        //izq: Se refiere a la posicion donde comienza el sub arreglo que se ordenara
+        //centro: Se refiere a la posicion central del sub arreglo que se ordenara
+        //der: Se refiere a la posicion final del sub arreglo que se ordenara
+
+        //Declaracion de variables
+        int posAuxIzq = limIzq, posAuxDer = centro+1,z = limIzq, i=0, numElementos = limDer - limIzq + 1;
+        int [] arregloAux = new int[arreglo.length];
+
+        //Asignacion de variables y ejecucion
+
+        // Bucle Principal
+        while (posAuxIzq <= centro && posAuxDer <= limDer) {
+            if (arreglo[posAuxIzq] <= arreglo[posAuxDer]) {
+                arregloAux[z++] = arreglo[posAuxIzq++];
+            } else {
+                arregloAux[z++] = arreglo[posAuxDer++];
+            }
+        }
+
+        //Copia el resto de la primera mitad
+        while (posAuxIzq <= centro) {
+            arregloAux[z++] = arreglo[posAuxIzq++];
+        }
+        //Copia el resto de la segunda mitad
+        while (posAuxDer <= limDer) {
+            arregloAux[z++] = arreglo[posAuxDer++];
+        }
+        //Copia el arreglo temporal en el original
+        while (i < numElementos) {
+            arreglo[limDer] = arregloAux[limDer];
+            i++;
+            limDer--;
+        }
+    }
+    public static int[] cargarArreglo(){
+        Scanner sc = new Scanner(System.in);
+        //Este modulo carga un arreglo con las especificaciones elejidas por el usuario
+
+        //Declaracion de variables
+        int longitud, i;
+        int[] arreglo;
+
+        //Asignacion de variables y ejecucion
+        System.out.println("Ingrese el largo del arreglo:");
+        longitud = sc.nextInt();
+        arreglo = new int[longitud];
+        for (i = 0; i < longitud; i++) {
+            System.out.println("Elemento posicion "+i);
+            arreglo[i] = sc.nextInt();
+        }
+        return arreglo;
+    }
+    public static String mostrarArreglo(int[] arreglo){
+        //Este modulo muestra el arreglo recibido
+        //arreglo: Se refiere al arreglo a mostrar.
+
+        //Declaracion de variables
+        int i, longitud = arreglo.length;
+        String arregloAString="";
+
+        //Asignacion de variables y ejecucion
+        for (i = 0; i < longitud; i++) {
+            arregloAString = arregloAString + arreglo[i];
+        }
+        return arregloAString;
+    }
+}
